@@ -1,8 +1,9 @@
 #!/usr/bin/Rscript
+#Anders S and Huber W (2010). “Differential expression analysis for sequence count data.” Genome Biology, 11, pp. R106. http://dx.doi.org/10.1186/gb-2010-11-10-r106, http://genomebiology.com/2010/11/10/R106/
 #eg.Rscript ./DESeq.R ./ rawCounts.txt design_trial.txt effect1 testing local
 args = commandArgs(TRUE)
 
-#Anders S and Huber W (2010). “Differential expression analysis for sequence count data.” Genome Biology, 11, pp. R106. http://dx.doi.org/10.1186/gb-2010-11-10-r106, http://genomebiology.com/2010/11/10/R106/
+
 if(length(args)<1)
 	args = c("--help")
 if("--help" %in% args){
