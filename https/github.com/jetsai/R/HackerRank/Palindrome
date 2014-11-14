@@ -1,0 +1,38 @@
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+
+input = read.table('stdin',sep=" ");
+input = as.vector(unlist(input))
+
+palindrome = function(input){
+	alphabet = unlist(strsplit("abcdefghijklmnopqrstuvwxyz",''))
+	n = as.numeric(input[1])
+	input = input[-1]
+	list_itr=numeric(n)
+	for(i in 1:n){
+		tmp = input[i]
+		start = 1
+		end = nchar(tmp)
+		itr = 0
+		while(end - start > 0){
+			first = unlist(strsplit(tmp,''))[start]
+			last = unlist(strsplit(tmp,''))[end]
+			if(which(alphabet==last)<which(alphabet==first)){
+				#list_itr[i]='not strictly decreasing'
+				break()
+			}
+				
+			while(which(alphabet==last)>which(alphabet==first) ){
+					last = alphabet[which(alphabet==last)-1]
+					itr = itr+1
+			}
+	
+			end = end-1
+			start = start+1
+		}
+		list_itr[i] = itr
+	}
+	return(list_itr)
+}
+
+	
+write.table(palindrome(input), sep = "", append=T, row.names = F, col.names = F)
