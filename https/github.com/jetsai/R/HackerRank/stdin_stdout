@@ -1,0 +1,9 @@
+# Familiarize environment
+# Enter your code here. Read input from STDIN. Print output to STDOUT
+x = read.delim(file('stdin'),header=F)
+
+sum_int = function(input){
+    return(sum(input))
+}
+
+cat(sum_int(x)) # suppress [1]...
