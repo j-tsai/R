@@ -30,7 +30,7 @@ pooled = function(x,alpha=0.05,method='random'){
 }
 
 fisher = function(pval){
-	chisq = -2*sum(log(pval))
+	chisq = -2*sum(log(pval),na.rm=T)
 	p.meta = 1-pchisq(chisq,df = 2*length(pval))
 	return(c(chisq.stat = chisq,p.meta = p.meta))
 }
@@ -55,8 +55,8 @@ if(isTRUE(interest)){
 }
 rm(interest)
 
-effectPlot = function(query, effectSizes){
-	es_query = effectSizes[effectSizes$query.Symbol == query,] ## effect size info for query
+effectPlot = function(query = query, effectSizes){
+	es_query = effectSizes[effectSizes$name == query,] ## effect size info for query
 	es_pooled = pooled(x = es_query)
 	meta_chisq = fisher(es_query$FDRt2)
 	return(list(es_query, es_pooled, meta_chisq))
@@ -70,6 +70,9 @@ plotES = function(pooled, es, query = query){
 pdf(sprintf('%s.pdf',pdfFile))
 for(k in 1:length(queries)){
 	query = queries[k]
+	if(is.na(query)){
+		break
+	}
 	use = effectPlot(effectSizes = pvalFile)
 	fooSet = use[[1]] ## effect size info for the foo query
 	pooled_ES = use[[2]]
